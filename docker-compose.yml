@@ -37,8 +37,8 @@ services:
     dns:
       - '1.1.1.1'
     volumes:
-      - '/home/pi/docker-data/pihole/etc-pihole/:/etc/pihole/'
-      - '/home/pi/docker-data/pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/'
+      - './docker-data/pihole/etc-pihole/:/etc/pihole/'
+      - './docker-data/pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/'
     cap_add:
       - NET_ADMIN
     restart: unless-stopped
@@ -66,9 +66,9 @@ services:
       - GF_AUTH_LOGIN_MAXIMUM_LIFETIME_DURATION=365d
       - GF_AUTH_TOKEN_ROTATION_INTERVAL_MINUTES=525600
     volumes:
-      - '/home/pi/docker-data/grafana/var-lib-grafana/:/var/lib/grafana/'
-      - '/home/pi/docker-data/grafana/etc-grafana/:/etc/grafana/'
-      - '/home/pi/docker-data/grafana/var-log-grafana/:/var/log/grafana/'
+      - './docker-data/grafana/var-lib-grafana/:/var/lib/grafana/'
+      - './docker-data/grafana/etc-grafana/:/etc/grafana/'
+      - './docker-data/grafana/var-log-grafana/:/var/log/grafana/'
     restart: unless-stopped
 
   influxdb:
@@ -83,8 +83,8 @@ services:
       - DOCKER_INFLUXDB_INIT_BUCKET=test
       - TZ=Europe/Kiev
     volumes:
-      - '/home/pi/docker-data/influxdb/var-lib-influxdb2/:/var/lib/influxdb2/'
-      - '/home/pi/docker-data/influxdb/etc-influxdb2/:/etc/influxdb2/'
+      - './docker-data/influxdb/var-lib-influxdb2/:/var/lib/influxdb2/'
+      - './docker-data/influxdb/etc-influxdb2/:/etc/influxdb2/'
     restart: unless-stopped
 
   mariadb:
@@ -98,7 +98,7 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - TZ=Europe/Kiev
     volumes:
-      - '/home/pi/docker-data/mariadb/config/:/config/'
+      - './docker-data/mariadb/config/:/config/'
     restart: unless-stopped
 
   redis:
@@ -113,7 +113,7 @@ services:
     ports:
       - "8080:80/tcp"
     volumes:
-      - '/home/pi/docker-data/nextcloud/var-www-html/:/var/www/html/'
+      - './docker-data/nextcloud/var-www-html/:/var/www/html/'
     environment:
       - MYSQL_HOST=mariadb
       - REDIS_HOST=redis
@@ -132,7 +132,7 @@ services:
       - "9000:9000/tcp"
       - "9443:9443/tcp"
     volumes:
-      - '/home/pi/docker-data/portainer/data/:/data/'
+      - './docker-data/portainer/data/:/data/'
       - '/var/run/docker.sock:/var/run/docker.sock'
 
   ytbot:
@@ -141,7 +141,7 @@ services:
     env_file:
       - .env
     volumes:
-      - '/home/pi/docker-data/ytbot/logs/:/logs/'
+      - './docker-data/ytbot/logs/:/logs/'
     restart: unless-stopped
 
   homer:
@@ -150,7 +150,7 @@ services:
     ports:
       - '6969:8080'
     volumes:
-      - '/home/pi/docker-data/homer/www-assets/:/www/assets/'
+      - './docker-data/homer/www-assets/:/www/assets/'
       - './homer/config.yml:/www/assets/config.yml'
     restart: unless-stopped
 
@@ -190,7 +190,7 @@ services:
       - PGID=1000
       - TZ=Europe/London
     volumes:
-      - /home/pi/docker-data/jellyfin/config/:/config/
+      - ./docker-data/jellyfin/config/:/config/
       - /home/pi/Torrents:/data/
     ports:
       - 8096:8096
@@ -208,7 +208,7 @@ services:
       - TZ=Europe/London
       - WEBUI_PORT=8097
     volumes:
-      - /home/pi/docker-data/qbittorrent/config/:/config/
+      - ./docker-data/qbittorrent/config/:/config/
       - /home/pi/Torrents/downloads/:/downloads/
     ports:
       - 6881:6881
