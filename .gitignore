@@ -1,2 +1,4 @@
 .env
 docker-data
+nginx/keys
+sshwifty/keys
