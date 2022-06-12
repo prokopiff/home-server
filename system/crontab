@@ -1,0 +1,2 @@
+*/10 * * * * /usr/local/bin/python /code/speedtest.py >> /logs/speedtest.log 2>&1
+*    * * * * /usr/local/bin/python /code/system.py >> /logs/system.log 2>&1

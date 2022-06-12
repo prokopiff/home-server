@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  system:
+    container_name: system
+    build: .
+    image: vprokopiv/pi-system
+    restart: unless-stopped
+    volumes:
+      - '/dev/mem:/dev/mem'
+      # - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /proc:/host-proc:ro
+    privileged: true
+    environment:
+      - INFLUX_URL=http://influxdb:8086
+      - INFLUX_TOKEN=CZeJBeLiu59JGllsE8q6Cilh22SDrs45mAR9oMlxJigBxtvAXIpP0GvFfBL2y8MNriCbDgcXk04DSHvs_eFnEQ==
+      - INFLUX_ORG=vp
+      - INFLUX_BUCKET=monitoring
+      - TZ=Europe/Kiev
+    networks:
+      - services
+
+networks:
+  services:
+    name: services_default

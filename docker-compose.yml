@@ -1,0 +1,217 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      # - '82:81'
+      # - '443:443'
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - pihole
+      - grafana
+      - influxdb
+      - nextcloud
+      - portainer
+      - homer
+      - sshwifty
+      - jellyfin
+      - qbittorrent
+
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "81:80/tcp"
+    environment:
+      TZ: 'Europe/Kiev'
+      ServerIP: '192.168.0.70'
+      DNS1: '1.1.1.1'
+      CORS_HOSTS: 127.0.0.1:6969,homer:6969,192.168.0.70:6969
+    dns:
+      - '1.1.1.1'
+    volumes:
+      - '/home/pi/docker-data/pihole/etc-pihole/:/etc/pihole/'
+      - '/home/pi/docker-data/pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/'
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+    extra_hosts:
+      - 'pi4:192.168.0.70'
+      - 'thinkpad:192.168.0.20'
+      - 'op7pro:192.168.0.21'
+      - 'op6:192.168.0.22'
+      - 'asus:192.168.0.23'
+      - 'alexa:192.168.0.24'
+      - 'desktop:192.168.0.25'
+      - 'masha-laptop:192.168.0.26'
+      - 'tablet:192.168.0.28'
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana
+    depends_on:
+      - influxdb
+      - mariadb
+    ports:
+      - "3000:3000/tcp"
+    user: '1000:1000'
+    environment:
+      - GF_AUTH_LOGIN_MAXIMUM_LIFETIME_DURATION=365d
+      - GF_AUTH_TOKEN_ROTATION_INTERVAL_MINUTES=525600
+    volumes:
+      - '/home/pi/docker-data/grafana/var-lib-grafana/:/var/lib/grafana/'
+      - '/home/pi/docker-data/grafana/etc-grafana/:/etc/grafana/'
+      - '/home/pi/docker-data/grafana/var-log-grafana/:/var/log/grafana/'
+    restart: unless-stopped
+
+  influxdb:
+    container_name: influxdb
+    image: influxdb:latest
+    ports:
+      - "8086:8086/tcp"
+    environment:
+      - DOCKER_INFLUXDB_INIT_USERNAME=root
+      - DOCKER_INFLUXDB_INIT_PASSWORD=root
+      - DOCKER_INFLUXDB_INIT_ORG=vp
+      - DOCKER_INFLUXDB_INIT_BUCKET=test
+      - TZ=Europe/Kiev
+    volumes:
+      - '/home/pi/docker-data/influxdb/var-lib-influxdb2/:/var/lib/influxdb2/'
+      - '/home/pi/docker-data/influxdb/etc-influxdb2/:/etc/influxdb2/'
+    restart: unless-stopped
+
+  mariadb:
+    container_name: mariadb
+    image: lscr.io/linuxserver/mariadb
+    ports:
+      - "3307:3306/tcp"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MYSQL_ROOT_PASSWORD=root
+      - TZ=Europe/Kiev
+    volumes:
+      - '/home/pi/docker-data/mariadb/config/:/config/'
+    restart: unless-stopped
+
+  redis:
+    container_name: redis
+    image: redis:alpine
+    restart: unless-stopped
+
+  nextcloud:
+    container_name: nextcloud
+    image: nextcloud:apache
+    restart: unless-stopped
+    ports:
+      - "8080:80/tcp"
+    volumes:
+      - '/home/pi/docker-data/nextcloud/var-www-html/:/var/www/html/'
+    environment:
+      - MYSQL_HOST=mariadb
+      - REDIS_HOST=redis
+      - TRUSTED_PROXIES=reverse-proxy
+      - TRUSTED_DOMAINS=100.119.24.43
+      - OVERWRITEWEBROOT=/nextcloud
+    depends_on:
+      - mariadb
+      - redis
+
+  portainer:
+    container_name: portainer
+    restart: unless-stopped
+    image: portainer/portainer-ce:latest
+    ports:
+      - "9000:9000/tcp"
+      - "9443:9443/tcp"
+    volumes:
+      - '/home/pi/docker-data/portainer/data/:/data/'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+
+  ytbot:
+    container_name: ytbot
+    image: vprokopiv/ytbot:arm64
+    env_file:
+      - .env
+    volumes:
+      - '/home/pi/docker-data/ytbot/logs/:/logs/'
+    restart: unless-stopped
+
+  homer:
+    container_name: homer
+    image: b4bz/homer:latest
+    ports:
+      - '6969:8080'
+    volumes:
+      - '/home/pi/docker-data/homer/www-assets/:/www/assets/'
+      - './homer/config.yml:/www/assets/config.yml'
+    restart: unless-stopped
+
+  sshwifty:
+    container_name: sshwifty
+    image: niruix/sshwifty:latest
+    ports:
+      - '8182:8182'
+    volumes:
+      - './sshwifty/sshwifty.conf.json:/sshwifty.conf.json'
+    environment:
+      - "SSHWIFTY_CONFIG=/sshwifty.conf.json"
+    restart: unless-stopped
+
+  system:
+    container_name: system
+    build: ./system/
+    image: vprokopiv/pi-system
+    restart: unless-stopped
+    volumes:
+      - '/dev/mem:/dev/mem'
+      - /etc/localtime:/etc/localtime:ro
+      - /proc:/host-proc:ro
+    privileged: true
+    environment:
+      - INFLUX_URL=http://influxdb:8086
+      - INFLUX_TOKEN=CZeJBeLiu59JGllsE8q6Cilh22SDrs45mAR9oMlxJigBxtvAXIpP0GvFfBL2y8MNriCbDgcXk04DSHvs_eFnEQ==
+      - INFLUX_ORG=vp
+      - INFLUX_BUCKET=monitoring
+      - TZ=Europe/Kiev
+
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin
+    container_name: jellyfin
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - /home/pi/docker-data/jellyfin/config/:/config/
+      - /home/pi/Torrents:/data/
+    ports:
+      - 8096:8096
+      - 8920:8920 #optional
+      - 7359:7359/udp #optional
+      - 1900:1900/udp #optional
+    restart: unless-stopped
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+      - WEBUI_PORT=8097
+    volumes:
+      - /home/pi/docker-data/qbittorrent/config/:/config/
+      - /home/pi/Torrents/downloads/:/downloads/
+    ports:
+      - 6881:6881
+      - 6881:6881/udp
+      - 8097:8097
+    restart: unless-stopped
