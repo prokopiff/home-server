@@ -115,15 +115,6 @@ services:
         target: "_blank"
         # type: "Ping"
 
-      - name: "Portainer"
-        logo: "assets/icons/portainer.png"
-        subtitle: "Docker information. user/pass for limited access"
-        # tag: "app"
-        url: "/portainer/"
-        target: "_blank"
-        type: "Portainer"
-        apikey: "ptr_l6qo0xzr1Gbuicm+mthbKf5g6OEnALT7mFOuWq4+k0M="
-
   - name: "Media"
     icon: "fas fa-film"
     items:
@@ -143,6 +134,23 @@ services:
         target: "_blank"
         type: "Ping"
 
+  - name: "Management"
+    icon: "fas fa-cogs"
+    items:
+      - name: "Portainer"
+        logo: "assets/icons/portainer.png"
+        subtitle: "Docker information. user/pass for limited access"
+        url: "/portainer/"
+        target: "_blank"
+        type: "Portainer"
+        apikey: "ptr_l6qo0xzr1Gbuicm+mthbKf5g6OEnALT7mFOuWq4+k0M="
+      
+      - name: "SSHwifty"
+        icon: "fas fa-terminal"
+        subtitle: "SSH from browser"
+        url: "/sshwifty/"
+        target: "_blank"
+
   - name: "Web resources"
     icon: "fas fa-external-link-alt"
     items:
@@ -152,3 +160,4 @@ services:
         # tag: "app"
         url: "https://login.tailscale.com/admin/machines"
         target: "_blank"
+
