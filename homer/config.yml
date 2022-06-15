@@ -134,6 +134,13 @@ services:
         target: "_blank"
         type: "Ping"
 
+      - name: "Fresh RSS"
+        icon: "fas fa-square-rss"
+        subtitle: "RSS Reader"
+        url: "/freshrss/"
+        target: "_blank"
+        type: "Ping"
+
   - name: "Management"
     icon: "fas fa-cogs"
     items:

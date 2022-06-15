@@ -22,6 +22,7 @@ services:
       - jellyfin
       - qbittorrent
       - filebrowser
+      - freshrss
 
   pihole:
     container_name: pihole
@@ -233,3 +234,26 @@ services:
     ports:
       - 8183:80
     restart: unless-stopped
+
+  freshrss:
+    image: freshrss/freshrss:edge-arm
+    container_name: freshrss
+    volumes:
+      - ./docker-data/freshrss/var-www-data/:/var/www/FreshRSS/data/
+      # Optional volume for storing third-party extensions
+      - ./docker-data/freshrss/var-www-extensions:/var/www/FreshRSS/extensions/
+      # Optional file providing custom global settings (used before a FreshRSS install)
+      # - ./config.custom.php:/var/www/FreshRSS/data/config.custom.php
+      # Optional file providing custom user settings (used before a new user is created)
+      # - ./config-user.custom.php:/var/www/FreshRSS/data/config-user.custom.php
+    ports:
+      - "8484:80"
+    env_file:
+      - ./freshrss/.env
+    environment:
+      TZ: 'Europe/Kiev'
+      CRON_MIN: '2,32'
+      LISTEN: '0.0.0.0:80'
+    restart: unless-stopped
+    depends_on:
+      - mariadb
