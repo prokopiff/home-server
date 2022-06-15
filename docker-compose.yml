@@ -21,6 +21,7 @@ services:
       - sshwifty
       - jellyfin
       - qbittorrent
+      - filebrowser
 
   pihole:
     container_name: pihole
@@ -216,4 +217,19 @@ services:
       - 6881:6881
       - 6881:6881/udp
       - 8097:8097
+    restart: unless-stopped
+
+  filebrowser:
+    image: filebrowser/filebrowser
+    container_name: filebrowser
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Kiev
+    volumes:
+      - ./docker-data/filebrowser/database.db:/database.db
+      - ./filebrowser/.filebrowser.json:/.filebrowser.json
+      - /home/pi/:/srv
+    ports:
+      - 8183:80
     restart: unless-stopped

@@ -151,6 +151,12 @@ services:
         url: "/sshwifty/"
         target: "_blank"
 
+      - name: "File Browser"
+        icon: "fas fa-folder-open"
+        subtitle: "Web-based file browser"
+        url: "/filebrowser/"
+        target: "_blank"
+
   - name: "Web resources"
     icon: "fas fa-external-link-alt"
     items:
