@@ -1,28 +1,23 @@
 version: '3'
 services:
-  nginx:
-    image: nginx:latest
-    container_name: nginx
-    restart: unless-stopped
+  traefik:
+    image: traefik
+    container_name: traefik
     ports:
-      - '80:80'
-      - '443:443'
+      - "80:80"
+      # The Web UI (enabled by --api.insecure=true)
+      - "8888:8080"
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/snippets/:/etc/nginx/snippets/
-      - ./nginx/keys/:/keys/
-    depends_on:
-      - pihole
-      - grafana
-      - influxdb
-      - nextcloud
-      - portainer
-      - homer
-      - sshwifty
-      - jellyfin
-      - qbittorrent
-      - filebrowser
-      - freshrss
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    command:
+      - --providers.docker
+      - --entrypoints.web.address=:80
+      - --providers.docker.network=traefik
+      - --api.insecure=true
+      - '--providers.docker.defaultRule=Host(`{{ normalize .Name }}.pi.hole`)'
+    labels:
+      - 'traefik.http.routers.traefik.rule=Host(`traefik.pi.hole`)'
+      - 'traefik.http.routers.traefik.service=api@internal'
 
   pihole:
     container_name: pihole
