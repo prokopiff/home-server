@@ -1,5 +1,4 @@
 import psutil
-import os
 from time import sleep
 from datetime import datetime
 from sys import argv
@@ -14,7 +13,8 @@ la = psutil.getloadavg()
 
 mem = psutil.virtual_memory()
 
-disk = psutil.disk_usage("/")
+disk1 = psutil.disk_usage("/")
+disk2 = psutil.disk_usage("/downloads/")
 
 temp = psutil.sensors_temperatures()
 
@@ -34,8 +34,18 @@ influx.write_point("mem", {
 	        "pct_used": float(mem.percent)
         })
 
-influx.write_point("disk", {
-            "pct_used": float(disk.percent)
+influx.write_point("disk_root", {
+            "pct_used": float(disk1.percent),
+            "used": int(disk1.used),
+            "free": int(disk1.free),
+            "total": int(disk1.total)
+        })
+
+influx.write_point("disk_downloads", {
+            "pct_used": float(disk2.percent),
+            "used": int(disk2.used),
+            "free": int(disk2.free),
+            "total": int(disk2.total)
         })
 
 influx.write_point("temp", {

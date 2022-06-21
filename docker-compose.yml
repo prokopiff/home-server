@@ -178,6 +178,7 @@ services:
       - '/dev/mem:/dev/mem'
       - /etc/localtime:/etc/localtime:ro
       - /proc:/host-proc:ro
+      - /home/pi/Torrents/downloads/:/downloads/:ro
     privileged: true
     environment:
       - INFLUX_URL=http://influxdb:8086
