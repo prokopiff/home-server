@@ -10,12 +10,11 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     command:
-      - --providers.docker
+      - --providers.docker.exposedByDefault=false
       - --entrypoints.web.address=:80
-      - --providers.docker.network=traefik
       - --api.insecure=true
-      - '--providers.docker.defaultRule=Host(`{{ normalize .Name }}.pi.hole`)'
     labels:
+      - 'traefik.enable=true'
       - 'traefik.http.routers.traefik.rule=Host(`traefik.pi.hole`)'
       - 'traefik.http.routers.traefik.service=api@internal'
 
@@ -50,6 +49,10 @@ services:
       - 'desktop:192.168.0.25'
       - 'masha-laptop:192.168.0.26'
       - 'tablet:192.168.0.28'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.services.pihole.loadbalancer.server.port=80'
+      - 'traefik.http.routers.pihole.rule=Host(`pihole.pi.hole`)'
 
   grafana:
     container_name: grafana
@@ -68,6 +71,10 @@ services:
       - './docker-data/grafana/etc-grafana/:/etc/grafana/'
       - './docker-data/grafana/var-log-grafana/:/var/log/grafana/'
     restart: unless-stopped
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.services.grafana.loadbalancer.server.port=3000'
+      - 'traefik.http.routers.grafana.rule=Host(`grafana.pi.hole`)'
 
   influxdb:
     container_name: influxdb
@@ -84,6 +91,11 @@ services:
       - './docker-data/influxdb/var-lib-influxdb2/:/var/lib/influxdb2/'
       - './docker-data/influxdb/etc-influxdb2/:/etc/influxdb2/'
     restart: unless-stopped
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.services.influxdb.loadbalancer.server.port=8086'
+      - 'traefik.http.routers.influxdb.rule=Host(`influxdb.pi.hole`)'
+
 
   mariadb:
     container_name: mariadb
@@ -121,6 +133,10 @@ services:
     depends_on:
       - mariadb
       - redis
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.services.nextcloud.loadbalancer.server.port=80'
+      - 'traefik.http.routers.nextcloud.rule=Host(`nextcloud.pi.hole`)'
 
   portainer:
     container_name: portainer
@@ -132,6 +148,10 @@ services:
     volumes:
       - './docker-data/portainer/data/:/data/'
       - '/var/run/docker.sock:/var/run/docker.sock'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.services.portainer.loadbalancer.server.port=9000'
+      - 'traefik.http.routers.portainer.rule=Host(`portainer.pi.hole`)'
 
   ytbot:
     container_name: ytbot
@@ -151,6 +171,10 @@ services:
       - './docker-data/homer/www-assets/:/www/assets/'
       - './homer/config.yml:/www/assets/config.yml'
     restart: unless-stopped
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.services.homer.loadbalancer.server.port=8080'
+      - 'traefik.http.routers.homer.rule=Host(`pi.hole`)'
 
   sshwifty:
     container_name: sshwifty
@@ -163,6 +187,10 @@ services:
     environment:
       - "SSHWIFTY_CONFIG=/sshwifty.conf.json"
     restart: unless-stopped
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.services.sshwifty.loadbalancer.server.port=8182'
+      - 'traefik.http.routers.sshwifty.rule=Host(`sshwifty.pi.hole`)'
 
   system:
     container_name: system
@@ -198,6 +226,10 @@ services:
       - 7359:7359/udp #optional
       - 1900:1900/udp #optional
     restart: unless-stopped
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.services.jellyfin.loadbalancer.server.port=8096'
+      - 'traefik.http.routers.jellyfin.rule=Host(`jellyfin.pi.hole`)'
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent
@@ -215,6 +247,10 @@ services:
       - 6881:6881/udp
       - 8097:8097
     restart: unless-stopped
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.services.qbittorrent.loadbalancer.server.port=8097'
+      - 'traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.pi.hole`)'
 
   filebrowser:
     image: filebrowser/filebrowser
@@ -230,6 +266,10 @@ services:
     ports:
       - 8183:80
     restart: unless-stopped
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.services.filebrowser.loadbalancer.server.port=80'
+      - 'traefik.http.routers.filebrowser.rule=Host(`filebrowser.pi.hole`)'
 
   freshrss:
     image: freshrss/freshrss:edge-arm
@@ -253,3 +293,7 @@ services:
     restart: unless-stopped
     depends_on:
       - mariadb
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.services.freshrss.loadbalancer.server.port=80'
+      - 'traefik.http.routers.freshrss.rule=Host(`freshrss.pi.hole`)'
