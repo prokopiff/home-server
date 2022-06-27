@@ -76,7 +76,7 @@ services:
         logo: "assets/icons/Vortex-R.webp"
         subtitle: "Local Ad Blocking DNS"
         # tag: "app"
-        url: "/pihole/"
+        url: "https://pihole.pi.hole"
         type: "PiHole"
         target: "_blank" # optional html a tag target attribute
 
@@ -84,7 +84,7 @@ services:
         logo: "assets/icons/nextcloud.svg"
         subtitle: "Local instance of NextCloud"
         # tag: "app"
-        url: "/nextcloud/"
+        url: "https://nextcloud.pi.hole"
         target: "_blank"
         type: "Ping"
 
@@ -92,7 +92,7 @@ services:
         logo: "assets/icons/syncthing.svg"
         subtitle: "File Syncing"
         # tag: "app"
-        url: "/syncthing/"
+        url: "https://syncthing.pi.hole"
         target: "_blank"
         #type: "Ping"
 
@@ -103,7 +103,7 @@ services:
         logo: "assets/icons/grafana_icon.svg"
         subtitle: "Various statistics"
         # tag: "app"
-        url: "/grafana/"
+        url: "https://grafana.pi.hole"
         target: "_blank"
         type: "Ping"
 
@@ -111,7 +111,7 @@ services:
         logo: "assets/icons/influxdb.svg"
         subtitle: "Various statistics"
         # tag: "app"
-        url: "http://192.168.0.70:8086/orgs/63e9b06dd149073e/dashboards/0965a35173b74000?lower=now%28%29%20-%2024h"
+        url: "https://influxdb.pi.hole"
         target: "_blank"
         # type: "Ping"
 
@@ -122,7 +122,7 @@ services:
         logo: "assets/icons/jellyfin.png"
         subtitle: "Torrents. root/empty"
         # tag: "app"
-        url: "/jellyfin/"
+        url: "https://jellyfin.pi.hole"
         target: "_blank"
         type: "Ping"
         
@@ -130,14 +130,14 @@ services:
         logo: "assets/icons/qb.svg"
         subtitle: "Torrents"
         # tag: "app"
-        url: "/qbittorrent/"
+        url: "https://qbittorrent.pi.hole"
         target: "_blank"
         type: "Ping"
 
       - name: "Fresh RSS"
         icon: "fas fa-square-rss"
         subtitle: "RSS Reader"
-        url: "/freshrss/"
+        url: "https://freshrss.pi.hole"
         target: "_blank"
         type: "Ping"
 
@@ -147,7 +147,7 @@ services:
       - name: "Portainer"
         logo: "assets/icons/portainer.png"
         subtitle: "Docker information. user/pass for limited access"
-        url: "/portainer/"
+        url: "https://portainer.pi.hole"
         target: "_blank"
         type: "Portainer"
         apikey: "ptr_l6qo0xzr1Gbuicm+mthbKf5g6OEnALT7mFOuWq4+k0M="
@@ -155,13 +155,13 @@ services:
       - name: "SSHwifty"
         icon: "fas fa-terminal"
         subtitle: "SSH from browser"
-        url: "/sshwifty/"
+        url: "https://sshwifty.pi.hole"
         target: "_blank"
 
       - name: "File Browser"
         icon: "fas fa-folder-open"
         subtitle: "Web-based file browser"
-        url: "/filebrowser/"
+        url: "https://filebrowser.pi.hole"
         target: "_blank"
 
   - name: "Web resources"

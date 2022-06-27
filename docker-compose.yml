@@ -36,7 +36,7 @@ services:
       TZ: 'Europe/Kiev'
       ServerIP: '192.168.0.70'
       DNS1: '1.1.1.1'
-      CORS_HOSTS: 127.0.0.1:6969,homer:6969,192.168.0.70:6969
+      CORS_HOSTS: homer:6969,192.168.0.70:80,192.168.0.70:443,pi.hole
     dns:
       - '1.1.1.1'
     volumes:
@@ -55,6 +55,17 @@ services:
       - 'desktop:192.168.0.25'
       - 'masha-laptop:192.168.0.26'
       - 'tablet:192.168.0.28'
+      - 'pihole.pi.hole:192.168.0.70'
+      - 'grafana.pi.hole:192.168.0.70'
+      - 'influxdb.pi.hole:192.168.0.70'
+      - 'nextcloud.pi.hole:192.168.0.70'
+      - 'portainer.pi.hole:192.168.0.70'
+      - 'sshwifty.pi.hole:192.168.0.70'
+      - 'jellyfin.pi.hole:192.168.0.70'
+      - 'qbittorrent.pi.hole:192.168.0.70'
+      - 'filebrowser.pi.hole:192.168.0.70'
+      - 'freshrss.pi.hole:192.168.0.70'
+      - 'syncthing.pi.hole:192.168.0.70'
 
   grafana:
     container_name: grafana
@@ -122,7 +133,6 @@ services:
       - REDIS_HOST=redis
       - TRUSTED_PROXIES=reverse-proxy
       - TRUSTED_DOMAINS=100.119.24.43
-      - OVERWRITEWEBROOT=/nextcloud
     depends_on:
       - mariadb
       - redis
