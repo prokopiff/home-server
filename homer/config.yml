@@ -113,7 +113,7 @@ services:
         # tag: "app"
         url: "https://influxdb.pi.hole"
         target: "_blank"
-        # type: "Ping"
+        type: "Ping"
 
   - name: "Media"
     icon: "fas fa-film"
@@ -157,12 +157,14 @@ services:
         subtitle: "SSH from browser"
         url: "https://sshwifty.pi.hole"
         target: "_blank"
+        # type: "Ping"
 
       - name: "File Browser"
         icon: "fas fa-folder-open"
         subtitle: "Web-based file browser"
         url: "https://filebrowser.pi.hole"
         target: "_blank"
+        # type: "Ping"
 
   - name: "Web resources"
     icon: "fas fa-external-link-alt"
