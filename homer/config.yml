@@ -166,6 +166,13 @@ services:
         target: "_blank"
         # type: "Ping"
 
+      - name: "Ntfy"
+        icon: "fas fa-bell"
+        # subtitle: "Web-based file browser"
+        url: "https://ntfy.pi.hole"
+        target: "_blank"
+        type: "Ping"
+
   - name: "Web resources"
     icon: "fas fa-external-link-alt"
     items:

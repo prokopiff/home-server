@@ -66,6 +66,7 @@ services:
       - 'filebrowser.pi.hole:192.168.0.70'
       - 'freshrss.pi.hole:192.168.0.70'
       - 'syncthing.pi.hole:192.168.0.70'
+      - 'ntfy.pi.hole:192.168.0.70'
 
   grafana:
     container_name: grafana
@@ -270,3 +271,17 @@ services:
     restart: unless-stopped
     depends_on:
       - mariadb
+
+  ntfy:
+    image: binwiederhier/ntfy
+    container_name: ntfy
+    command:
+      - serve
+    environment:
+      - TZ=Europe/Kiev
+    volumes:
+      - ./docker-data/ntfy/var-cache-ntfy/:/var/cache/ntfy/
+      - ./docker-data/ntfy/etc-ntfy:/etc/ntfy/
+    # ports:
+      # - 80:80
+    restart: unless-stopped
