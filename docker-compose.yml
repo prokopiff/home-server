@@ -34,9 +34,9 @@ services:
       - "81:80/tcp"
     environment:
       TZ: 'Europe/Kiev'
-      ServerIP: '192.168.0.70'
+      ServerIP: '192.168.0.2'
       DNS1: '1.1.1.1'
-      CORS_HOSTS: homer:6969,192.168.0.70:80,192.168.0.70:443,pi.hole
+      CORS_HOSTS: pi.hole,vprokopiv.xyz
     dns:
       - '1.1.1.1'
     volumes:
@@ -46,27 +46,28 @@ services:
       - NET_ADMIN
     restart: unless-stopped
     extra_hosts:
-      - 'pi4:192.168.0.70'
-      - 'thinkpad:192.168.0.20'
-      - 'op7pro:192.168.0.21'
-      - 'op6:192.168.0.22'
-      - 'asus:192.168.0.23'
-      - 'alexa:192.168.0.24'
-      - 'desktop:192.168.0.25'
-      - 'masha-laptop:192.168.0.26'
-      - 'tablet:192.168.0.28'
-      - 'pihole.pi.hole:192.168.0.70'
-      - 'grafana.pi.hole:192.168.0.70'
-      - 'influxdb.pi.hole:192.168.0.70'
-      - 'nextcloud.pi.hole:192.168.0.70'
-      - 'portainer.pi.hole:192.168.0.70'
-      - 'sshwifty.pi.hole:192.168.0.70'
-      - 'jellyfin.pi.hole:192.168.0.70'
-      - 'qbittorrent.pi.hole:192.168.0.70'
-      - 'filebrowser.pi.hole:192.168.0.70'
-      - 'freshrss.pi.hole:192.168.0.70'
-      - 'syncthing.pi.hole:192.168.0.70'
-      - 'ntfy.pi.hole:192.168.0.70'
+      - 'pi4:192.168.0.2'
+      - 'thinkpad:192.168.0.12'
+      - 'op7pro:192.168.0.10'
+      - 'op6:192.168.0.11'
+      - 'alexa:192.168.0.23'
+      - 'desktop:192.168.0.13'
+      - 'masha-laptop:192.168.0.15'
+      - 'tablet:192.168.0.14'
+
+      - 'vprokopiv.xyz:192.168.0.2'
+      - 'pihole.vprokopiv.xyz:192.168.0.2'
+      - 'grafana.vprokopiv.xyz:192.168.0.2'
+      - 'influxdb.vprokopiv.xyz:192.168.0.2'
+      - 'nextcloud.vprokopiv.xyz:192.168.0.2'
+      - 'portainer.vprokopiv.xyz:192.168.0.2'
+      - 'sshwifty.vprokopiv.xyz:192.168.0.2'
+      - 'jellyfin.vprokopiv.xyz:192.168.0.2'
+      - 'qbittorrent.vprokopiv.xyz:192.168.0.2'
+      - 'filebrowser.vprokopiv.xyz:192.168.0.2'
+      - 'freshrss.vprokopiv.xyz:192.168.0.2'
+      - 'syncthing.vprokopiv.xyz:192.168.0.2'
+      - 'ntfy.vprokopiv.xyz:192.168.0.2'
 
   grafana:
     container_name: grafana
@@ -146,7 +147,7 @@ services:
       - "9000:9000/tcp"
       - "9443:9443/tcp"
     environment:
-      - VIRTUAL_HOST=portainer.pi.hole
+      - VIRTUAL_HOST=portainer.vprokopiv.xyz
     volumes:
       - './docker-data/portainer/data/:/data/'
       - '/var/run/docker.sock:/var/run/docker.sock'

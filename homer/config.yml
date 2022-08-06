@@ -76,7 +76,7 @@ services:
         logo: "assets/icons/Vortex-R.webp"
         subtitle: "Local Ad Blocking DNS"
         # tag: "app"
-        url: "https://pihole.pi.hole"
+        url: "https://pihole.vprokopiv.xyz"
         type: "PiHole"
         target: "_blank" # optional html a tag target attribute
 
@@ -84,7 +84,7 @@ services:
         logo: "assets/icons/nextcloud.svg"
         subtitle: "Local instance of NextCloud"
         # tag: "app"
-        url: "https://nextcloud.pi.hole"
+        url: "https://nextcloud.vprokopiv.xyz"
         target: "_blank"
         type: "Ping"
 
@@ -92,7 +92,7 @@ services:
         logo: "assets/icons/syncthing.svg"
         subtitle: "File Syncing"
         # tag: "app"
-        url: "https://syncthing.pi.hole"
+        url: "https://syncthing.vprokopiv.xyz"
         target: "_blank"
         #type: "Ping"
 
@@ -103,7 +103,7 @@ services:
         logo: "assets/icons/grafana_icon.svg"
         subtitle: "Various statistics"
         # tag: "app"
-        url: "https://grafana.pi.hole"
+        url: "https://grafana.vprokopiv.xyz"
         target: "_blank"
         type: "Ping"
 
@@ -111,7 +111,7 @@ services:
         logo: "assets/icons/influxdb.svg"
         subtitle: "Various statistics"
         # tag: "app"
-        url: "https://influxdb.pi.hole"
+        url: "https://influxdb.vprokopiv.xyz"
         target: "_blank"
         type: "Ping"
 
@@ -122,7 +122,7 @@ services:
         logo: "assets/icons/jellyfin.png"
         subtitle: "Torrents. root/empty"
         # tag: "app"
-        url: "https://jellyfin.pi.hole"
+        url: "https://jellyfin.vprokopiv.xyz"
         target: "_blank"
         type: "Ping"
         
@@ -130,14 +130,14 @@ services:
         logo: "assets/icons/qb.svg"
         subtitle: "Torrents"
         # tag: "app"
-        url: "https://qbittorrent.pi.hole"
+        url: "https://qbittorrent.vprokopiv.xyz"
         target: "_blank"
         type: "Ping"
 
       - name: "Fresh RSS"
         icon: "fas fa-square-rss"
         subtitle: "RSS Reader"
-        url: "https://freshrss.pi.hole"
+        url: "https://freshrss.vprokopiv.xyz"
         target: "_blank"
         type: "Ping"
 
@@ -147,7 +147,7 @@ services:
       - name: "Portainer"
         logo: "assets/icons/portainer.png"
         subtitle: "Docker information. user/pass for limited access"
-        url: "https://portainer.pi.hole"
+        url: "https://portainer.vprokopiv.xyz"
         target: "_blank"
         type: "Portainer"
         apikey: "ptr_l6qo0xzr1Gbuicm+mthbKf5g6OEnALT7mFOuWq4+k0M="
@@ -155,21 +155,21 @@ services:
       - name: "SSHwifty"
         icon: "fas fa-terminal"
         subtitle: "SSH from browser"
-        url: "https://sshwifty.pi.hole"
+        url: "https://sshwifty.vprokopiv.xyz"
         target: "_blank"
         # type: "Ping"
 
       - name: "File Browser"
         icon: "fas fa-folder-open"
         subtitle: "Web-based file browser"
-        url: "https://filebrowser.pi.hole"
+        url: "https://filebrowser.vprokopiv.xyz"
         target: "_blank"
         # type: "Ping"
 
       - name: "Ntfy"
         icon: "fas fa-bell"
         # subtitle: "Web-based file browser"
-        url: "https://ntfy.pi.hole"
+        url: "https://ntfy.vprokopiv.xyz"
         target: "_blank"
         type: "Ping"
 
