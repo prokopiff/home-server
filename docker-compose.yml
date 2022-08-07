@@ -51,7 +51,8 @@ services:
       - 'op7pro:192.168.0.10'
       - 'op6:192.168.0.11'
       - 'alexa:192.168.0.23'
-      - 'desktop:192.168.0.13'
+      - 'desktop-wifi:192.168.0.13'
+      - 'desktop:192.168.0.16'
       - 'masha-laptop:192.168.0.15'
       - 'tablet:192.168.0.14'
 
@@ -75,8 +76,6 @@ services:
     depends_on:
       - influxdb
       - mariadb
-    ports:
-      - "3000:3000/tcp"
     user: '1000:1000'
     environment:
       - GF_AUTH_LOGIN_MAXIMUM_LIFETIME_DURATION=365d
@@ -90,8 +89,6 @@ services:
   influxdb:
     container_name: influxdb
     image: influxdb:latest
-    ports:
-      - "8086:8086/tcp"
     environment:
       - DOCKER_INFLUXDB_INIT_USERNAME=root
       - DOCKER_INFLUXDB_INIT_PASSWORD=root
@@ -126,8 +123,6 @@ services:
     container_name: nextcloud
     image: nextcloud:apache
     restart: unless-stopped
-    ports:
-      - "8080:80/tcp"
     volumes:
       - './docker-data/nextcloud/var-www-html/:/var/www/html/'
     environment:
@@ -143,9 +138,6 @@ services:
     container_name: portainer
     restart: unless-stopped
     image: portainer/portainer-ce:latest
-    ports:
-      - "9000:9000/tcp"
-      - "9443:9443/tcp"
     environment:
       - VIRTUAL_HOST=portainer.vprokopiv.xyz
     volumes:
@@ -164,8 +156,6 @@ services:
   homer:
     container_name: homer
     image: b4bz/homer:latest
-    ports:
-      - '6969:8080'
     volumes:
       - './docker-data/homer/www-assets/:/www/assets/'
       - './homer/config.yml:/www/assets/config.yml'
@@ -174,8 +164,6 @@ services:
   sshwifty:
     container_name: sshwifty
     image: niruix/sshwifty:latest
-    ports:
-      - '8182:8182'
     volumes:
       - './sshwifty/sshwifty.conf.json:/sshwifty.conf.json'
       - './sshwifty/keys/:/keys/'
@@ -211,11 +199,6 @@ services:
     volumes:
       - ./docker-data/jellyfin/config/:/config/
       - /home/pi/Torrents:/data/
-    ports:
-      - 8096:8096
-      - 8920:8920 #optional
-      - 7359:7359/udp #optional
-      - 1900:1900/udp #optional
     restart: unless-stopped
 
   qbittorrent:
@@ -229,10 +212,6 @@ services:
     volumes:
       - ./docker-data/qbittorrent/config/:/config/
       - /home/pi/Torrents/downloads/:/downloads/
-    ports:
-      - 6881:6881
-      - 6881:6881/udp
-      - 8097:8097
     restart: unless-stopped
 
   filebrowser:
@@ -246,8 +225,6 @@ services:
       - ./docker-data/filebrowser/database.db:/database.db
       - ./filebrowser/.filebrowser.json:/.filebrowser.json
       - /home/pi/:/srv
-    ports:
-      - 8183:80
     restart: unless-stopped
 
   freshrss:
@@ -261,8 +238,6 @@ services:
       # - ./config.custom.php:/var/www/FreshRSS/data/config.custom.php
       # Optional file providing custom user settings (used before a new user is created)
       # - ./config-user.custom.php:/var/www/FreshRSS/data/config-user.custom.php
-    ports:
-      - "8484:80"
     env_file:
       - ./freshrss/.env
     environment:
@@ -283,6 +258,4 @@ services:
     volumes:
       - ./docker-data/ntfy/var-cache-ntfy/:/var/cache/ntfy/
       - ./docker-data/ntfy/etc-ntfy:/etc/ntfy/
-    # ports:
-      # - 80:80
     restart: unless-stopped
