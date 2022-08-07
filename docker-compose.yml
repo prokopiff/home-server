@@ -24,6 +24,28 @@ services:
       - filebrowser
       - freshrss
 
+  nginx-public:
+    image: nginx:latest
+    container_name: nginx-public
+    restart: unless-stopped
+    ports:
+      - '8888:80'
+      - '8443:443'
+    volumes:
+      - ./nginx/nginx-public.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/snippets/:/etc/nginx/snippets/
+      - ./nginx/keys/:/keys/
+    depends_on:
+      - homer-public
+
+  homer-public:
+    container_name: homer-public
+    image: b4bz/homer:latest
+    volumes:
+      - './docker-data/homer/www-assets/:/www/assets/'
+      - './homer/public-config.yml:/www/assets/config.yml'
+    restart: unless-stopped
+
   pihole:
     container_name: pihole
     image: pihole/pihole:latest
