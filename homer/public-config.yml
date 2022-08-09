@@ -49,7 +49,12 @@ services:
     items:
       - name: "Linkedin"
         icon: "fab fa-linkedin-in"
+        subtitle: "I don't read messages there"
         url: "https://www.linkedin.com/in/volodymyr-prokopiv-86643ba0/"
+        target: "_blank"
+      - name: "GitHub"
+        icon: "fab fa-github"
+        url: "https://github.com/prokopiff"
         target: "_blank"
 
   - name: "Message me"

@@ -91,6 +91,7 @@ services:
       - 'freshrss.vprokopiv.xyz:192.168.0.2'
       - 'syncthing.vprokopiv.xyz:192.168.0.2'
       - 'ntfy.vprokopiv.xyz:192.168.0.2'
+      - 'vpn.vprokopiv.xyz:192.168.0.2'
 
   grafana:
     container_name: grafana
@@ -281,3 +282,14 @@ services:
       - ./docker-data/ntfy/var-cache-ntfy/:/var/cache/ntfy/
       - ./docker-data/ntfy/etc-ntfy:/etc/ntfy/
     restart: unless-stopped
+
+  openvpn:
+    container_name: openvpn
+    image: vprokopiv/openvpn:arm64
+    cap_add:
+     - NET_ADMIN
+    ports:
+     - "1194:1194/udp"
+    restart: unless-stopped
+    volumes:
+     - ./openvpn/:/etc/openvpn/
