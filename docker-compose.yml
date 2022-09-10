@@ -153,6 +153,7 @@ services:
       - REDIS_HOST=redis
       - TRUSTED_PROXIES=reverse-proxy
       - TRUSTED_DOMAINS=100.119.24.43
+      - OVERWRITEHOST=nextcloud.vprokopiv.xyz
     depends_on:
       - mariadb
       - redis

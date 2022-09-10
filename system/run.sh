@@ -1,7 +1,7 @@
 printenv > /etc/environment
 
 python boot.py >> /logs/boot.log &
-python clock.py >> /logs/clock.log &
+#python clock.py >> /logs/clock.log &
 
 cron
 
