@@ -117,15 +117,7 @@ services:
 
   - name: "Media"
     icon: "fas fa-film"
-    items:
-      - name: "Jellyfin"
-        logo: "assets/icons/jellyfin.png"
-        subtitle: "Torrents. root/empty"
-        # tag: "app"
-        url: "https://jellyfin.vprokopiv.xyz"
-        target: "_blank"
-        type: "Ping"
-        
+    items:        
       - name: "qBittorrent"
         logo: "assets/icons/qb.svg"
         subtitle: "Torrents"
@@ -181,5 +173,12 @@ services:
         subtitle: "VPN for all devices"
         # tag: "app"
         url: "https://login.tailscale.com/admin/machines"
+        target: "_blank"
+
+      - name: "Synology"
+        icon: "fas fa-hard-drive"
+        subtitle: "NAS"
+        # tag: "app"
+        url: "https://prokopiv.quickconnect.to"
         target: "_blank"
 

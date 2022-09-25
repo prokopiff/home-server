@@ -19,7 +19,6 @@ services:
       - portainer
       - homer
       - sshwifty
-      - jellyfin
       - qbittorrent
       - filebrowser
       - freshrss
@@ -77,6 +76,7 @@ services:
       - 'desktop:192.168.0.16'
       - 'masha-laptop:192.168.0.15'
       - 'tablet:192.168.0.14'
+      - 'synology:192.168.0.3'
 
       - 'vprokopiv.xyz:192.168.0.2'
       - 'pihole.vprokopiv.xyz:192.168.0.2'
@@ -85,7 +85,6 @@ services:
       - 'nextcloud.vprokopiv.xyz:192.168.0.2'
       - 'portainer.vprokopiv.xyz:192.168.0.2'
       - 'sshwifty.vprokopiv.xyz:192.168.0.2'
-      - 'jellyfin.vprokopiv.xyz:192.168.0.2'
       - 'qbittorrent.vprokopiv.xyz:192.168.0.2'
       - 'filebrowser.vprokopiv.xyz:192.168.0.2'
       - 'freshrss.vprokopiv.xyz:192.168.0.2'
@@ -152,7 +151,7 @@ services:
       - MYSQL_HOST=mariadb
       - REDIS_HOST=redis
       - TRUSTED_PROXIES=reverse-proxy
-      - TRUSTED_DOMAINS=100.119.24.43
+      - TRUSTED_DOMAINS=nextcloud.vprokopiv.xyz
       - OVERWRITEHOST=nextcloud.vprokopiv.xyz
     depends_on:
       - mariadb
@@ -212,18 +211,6 @@ services:
       - INFLUX_ORG=vp
       - INFLUX_BUCKET=monitoring
       - TZ=Europe/Kiev
-
-  jellyfin:
-    image: lscr.io/linuxserver/jellyfin
-    container_name: jellyfin
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/London
-    volumes:
-      - ./docker-data/jellyfin/config/:/config/
-      - /home/pi/Torrents:/data/
-    restart: unless-stopped
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent
