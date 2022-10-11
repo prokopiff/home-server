@@ -199,7 +199,8 @@ services:
     image: vprokopiv/pi-system
     restart: unless-stopped
     volumes:
-      - '/dev/mem:/dev/mem'
+      - /dev/mem:/dev/mem
+      - /dev/i2c-1:/dev/i2c-1
       - /etc/localtime:/etc/localtime:ro
       - /proc:/host-proc:ro
       - /home/pi/Torrents/downloads/:/downloads/:ro
