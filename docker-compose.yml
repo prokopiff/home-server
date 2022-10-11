@@ -88,7 +88,6 @@ services:
       - 'qbittorrent.vprokopiv.xyz:192.168.0.2'
       - 'filebrowser.vprokopiv.xyz:192.168.0.2'
       - 'freshrss.vprokopiv.xyz:192.168.0.2'
-      - 'syncthing.vprokopiv.xyz:192.168.0.2'
       - 'ntfy.vprokopiv.xyz:192.168.0.2'
       - 'vpn.vprokopiv.xyz:192.168.0.2'
 
@@ -222,7 +221,7 @@ services:
       - WEBUI_PORT=8097
     volumes:
       - ./docker-data/qbittorrent/config/:/config/
-      - /home/pi/Torrents/downloads/:/downloads/
+      - /home/pi/NAS/torrents/:/downloads/
     restart: unless-stopped
 
   filebrowser:

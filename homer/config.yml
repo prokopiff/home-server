@@ -88,14 +88,6 @@ services:
         target: "_blank"
         type: "Ping"
 
-      - name: "SyncThing"
-        logo: "assets/icons/syncthing.svg"
-        subtitle: "File Syncing"
-        # tag: "app"
-        url: "https://syncthing.vprokopiv.xyz"
-        target: "_blank"
-        #type: "Ping"
-
   - name: "Monitoring"
     icon: "fas fa-chart-area"
     items:
