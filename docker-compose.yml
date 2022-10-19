@@ -119,6 +119,8 @@ services:
     volumes:
       - './docker-data/influxdb/var-lib-influxdb2/:/var/lib/influxdb2/'
       - './docker-data/influxdb/etc-influxdb2/:/etc/influxdb2/'
+    command:
+      - '--session-length=525600'
     restart: unless-stopped
 
   mariadb:
