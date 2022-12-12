@@ -76,7 +76,7 @@ services:
         logo: "assets/icons/Vortex-R.webp"
         subtitle: "Local Ad Blocking DNS"
         # tag: "app"
-        url: "https://pihole.vprokopiv.xyz"
+        url: "https://pihole.prokopiv.xyz"
         type: "PiHole"
         target: "_blank" # optional html a tag target attribute
 
@@ -84,7 +84,7 @@ services:
         logo: "assets/icons/nextcloud.svg"
         subtitle: "Local instance of NextCloud"
         # tag: "app"
-        url: "https://nextcloud.vprokopiv.xyz"
+        url: "https://nextcloud.prokopiv.xyz"
         target: "_blank"
         type: "Ping"
 
@@ -95,7 +95,7 @@ services:
         logo: "assets/icons/grafana_icon.svg"
         subtitle: "Various statistics"
         # tag: "app"
-        url: "https://grafana.vprokopiv.xyz"
+        url: "https://grafana.prokopiv.xyz"
         target: "_blank"
         type: "Ping"
 
@@ -103,7 +103,7 @@ services:
         logo: "assets/icons/influxdb.svg"
         subtitle: "Various statistics"
         # tag: "app"
-        url: "https://influxdb.vprokopiv.xyz"
+        url: "https://influxdb.prokopiv.xyz"
         target: "_blank"
         type: "Ping"
 
@@ -114,14 +114,14 @@ services:
         logo: "assets/icons/qb.svg"
         subtitle: "Torrents"
         # tag: "app"
-        url: "https://qbittorrent.vprokopiv.xyz"
+        url: "https://qbittorrent.prokopiv.xyz"
         target: "_blank"
         type: "Ping"
 
       - name: "Fresh RSS"
         icon: "fas fa-square-rss"
         subtitle: "RSS Reader"
-        url: "https://freshrss.vprokopiv.xyz"
+        url: "https://freshrss.prokopiv.xyz"
         target: "_blank"
         type: "Ping"
 
@@ -131,7 +131,7 @@ services:
       - name: "Portainer"
         logo: "assets/icons/portainer.png"
         subtitle: "Docker information. user/pass for limited access"
-        url: "https://portainer.vprokopiv.xyz"
+        url: "https://portainer.prokopiv.xyz"
         target: "_blank"
         type: "Portainer"
         apikey: "ptr_l6qo0xzr1Gbuicm+mthbKf5g6OEnALT7mFOuWq4+k0M="
@@ -139,21 +139,21 @@ services:
       - name: "SSHwifty"
         icon: "fas fa-terminal"
         subtitle: "SSH from browser"
-        url: "https://sshwifty.vprokopiv.xyz"
+        url: "https://sshwifty.prokopiv.xyz"
         target: "_blank"
         # type: "Ping"
 
       - name: "File Browser"
         icon: "fas fa-folder-open"
         subtitle: "Web-based file browser"
-        url: "https://filebrowser.vprokopiv.xyz"
+        url: "https://filebrowser.prokopiv.xyz"
         target: "_blank"
         # type: "Ping"
 
       - name: "Ntfy"
         icon: "fas fa-bell"
         # subtitle: "Web-based file browser"
-        url: "https://ntfy.vprokopiv.xyz"
+        url: "https://ntfy.prokopiv.xyz"
         target: "_blank"
         type: "Ping"
 

@@ -57,7 +57,7 @@ services:
       TZ: 'Europe/Kiev'
       ServerIP: '192.168.0.2'
       DNS1: '1.1.1.1'
-      CORS_HOSTS: pi.hole,vprokopiv.xyz
+      CORS_HOSTS: pi.hole,prokopiv.xyz
     dns:
       - '1.1.1.1'
     volumes:
@@ -78,18 +78,18 @@ services:
       - 'tablet:192.168.0.14'
       - 'synology:192.168.0.3'
 
-      - 'vprokopiv.xyz:192.168.0.2'
-      - 'pihole.vprokopiv.xyz:192.168.0.2'
-      - 'grafana.vprokopiv.xyz:192.168.0.2'
-      - 'influxdb.vprokopiv.xyz:192.168.0.2'
-      - 'nextcloud.vprokopiv.xyz:192.168.0.2'
-      - 'portainer.vprokopiv.xyz:192.168.0.2'
-      - 'sshwifty.vprokopiv.xyz:192.168.0.2'
-      - 'qbittorrent.vprokopiv.xyz:192.168.0.2'
-      - 'filebrowser.vprokopiv.xyz:192.168.0.2'
-      - 'freshrss.vprokopiv.xyz:192.168.0.2'
-      - 'ntfy.vprokopiv.xyz:192.168.0.2'
-      - 'vpn.vprokopiv.xyz:192.168.0.2'
+      - 'prokopiv.xyz:192.168.0.2'
+      - 'pihole.prokopiv.xyz:192.168.0.2'
+      - 'grafana.prokopiv.xyz:192.168.0.2'
+      - 'influxdb.prokopiv.xyz:192.168.0.2'
+      - 'nextcloud.prokopiv.xyz:192.168.0.2'
+      - 'portainer.prokopiv.xyz:192.168.0.2'
+      - 'sshwifty.prokopiv.xyz:192.168.0.2'
+      - 'qbittorrent.prokopiv.xyz:192.168.0.2'
+      - 'filebrowser.prokopiv.xyz:192.168.0.2'
+      - 'freshrss.prokopiv.xyz:192.168.0.2'
+      - 'ntfy.prokopiv.xyz:192.168.0.2'
+      - 'vpn.prokopiv.xyz:192.168.0.2'
 
   grafana:
     container_name: grafana
@@ -152,8 +152,8 @@ services:
       - MYSQL_HOST=mariadb
       - REDIS_HOST=redis
       - TRUSTED_PROXIES=reverse-proxy
-      - TRUSTED_DOMAINS=nextcloud.vprokopiv.xyz
-      - OVERWRITEHOST=nextcloud.vprokopiv.xyz
+      - TRUSTED_DOMAINS=nextcloud.prokopiv.xyz
+      - OVERWRITEHOST=nextcloud.prokopiv.xyz
     depends_on:
       - mariadb
       - redis
@@ -163,7 +163,7 @@ services:
     restart: unless-stopped
     image: portainer/portainer-ce:latest
     environment:
-      - VIRTUAL_HOST=portainer.vprokopiv.xyz
+      - VIRTUAL_HOST=portainer.prokopiv.xyz
     volumes:
       - './docker-data/portainer/data/:/data/'
       - '/var/run/docker.sock:/var/run/docker.sock'
