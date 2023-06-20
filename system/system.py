@@ -52,8 +52,16 @@ influx.write_point("temp", {
             "cpu_temp_c": float(temp['cpu_thermal'][0].current)
         })
 
+uptime_seconds = -1.0
+try:
+    with open('/host-proc/uptime', 'r') as f:
+        uptime_seconds = float(f.readline().split()[0])
+except:
+    pass
+
 influx.write_point("os", {
             "last_boot_time": boot_time,
 	        "users": users,
-            "processes": processes
+            "processes": processes,
+            "uptime_seconds": uptime_seconds
         })

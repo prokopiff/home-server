@@ -2,7 +2,7 @@
 # Homepage configuration
 # See https://fontawesome.com/icons for icons options
 
-title: "Volodymyr Prokopiv's Home Page"
+title: "My Home Page"
 # subtitle: ""
 # logo: "logo.png"
 # icon: "fa fa-display-code" # Optional icon
@@ -44,19 +44,6 @@ colors:
     link-hover: "#ffdd57"
 
 services:
-  - name: "Social Media"
-    icon: "fas fa-hashtag"
-    items:
-      - name: "Linkedin"
-        icon: "fab fa-linkedin-in"
-        subtitle: "I don't read messages there"
-        url: "https://www.linkedin.com/in/volodymyr-prokopiv-86643ba0/"
-        target: "_blank"
-      - name: "GitHub"
-        icon: "fab fa-github"
-        url: "https://github.com/prokopiff"
-        target: "_blank"
-
   - name: "Message me"
     icon: "fas fa-envelope"
     items:
