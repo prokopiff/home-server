@@ -144,7 +144,7 @@ services:
 
   nextcloud:
     container_name: nextcloud
-    image: nextcloud:apache
+    image: nextcloud:27-apache
     restart: unless-stopped
     volumes:
       - './docker-data/nextcloud/var-www-html/:/var/www/html/'
