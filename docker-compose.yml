@@ -22,6 +22,9 @@ services:
       - qbittorrent
       - filebrowser
       - freshrss
+      - ntfy
+      - invidious
+      - changedetection
 
   nginx-public:
     image: nginx:latest
@@ -283,3 +286,82 @@ services:
     restart: unless-stopped
     volumes:
      - ./openvpn/:/etc/openvpn/
+
+  invidious:
+    container_name: invidious
+    image: quay.io/invidious/invidious:latest-arm64
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      # https://github.com/iv-org/invidious/blob/master/config/config.example.yml
+      INVIDIOUS_CONFIG: |
+        db:
+          dbname: invidious
+          user: kemal
+          password: kemal
+          host: invidious-db
+          port: 5432
+        check_tables: true
+        # external_port:
+        # domain:
+        # https_only: false
+        # statistics_enabled: false
+        hmac_key: "rieuwoifjsdlkjfaowiejfalkdjoiwe"
+    healthcheck:
+      test: wget -nv --tries=1 --spider http://127.0.0.1:3000/api/v1/comments/jNQXAC9IVRw || exit 1
+      interval: 30s
+      timeout: 5s
+      retries: 2
+    logging:
+      options:
+        max-size: "1G"
+        max-file: "4"
+    depends_on:
+        - invidious-db
+  
+  invidious-db:
+    container_name: invidious-db
+    image: docker.io/library/postgres:14
+    restart: unless-stopped
+    volumes:
+      - ./docker-data/invidious-db/data/:/var/lib/postgresql/data
+      - ./docker-data/invidious-db/config/sql:/config/sql
+      - ./docker-data/invidious-db/init-invidious-db.sh:/docker-entrypoint-initdb.d/init-invidious-db.sh
+    environment:
+      POSTGRES_DB: invidious
+      POSTGRES_USER: kemal
+      POSTGRES_PASSWORD: kemal
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+
+  changedetection:
+    image: ghcr.io/dgtlmoon/changedetection.io
+    container_name: changedetection
+    hostname: changedetection
+    volumes:
+      - ./docker-data/changedetection/datastore/:/datastore
+    environment:
+      - "WEBDRIVER_URL=http://browser-chrome:4444/wd/hub"
+      - FETCH_WORKERS=2
+    ports:
+      - 5000:5000
+    depends_on:
+      - browser-chrome
+
+  browser-chrome:
+    container_name: browser-chrome
+    hostname: browser-chrome
+    image: seleniarm/standalone-chromium
+    ports:
+      - 7900:7900
+    environment:
+      - VNC_NO_PASSWORD=1
+      - SCREEN_WIDTH=1900
+      - SCREEN_HEIGHT=1000
+      - SCREEN_DEPTH=24
+    volumes:
+      # Workaround to avoid the browser crashing inside a docker container
+      # See https://github.com/SeleniumHQ/docker-selenium#quick-start
+      - /dev/shm:/dev/shm
+    restart: unless-stopped

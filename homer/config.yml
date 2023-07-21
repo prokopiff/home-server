@@ -88,6 +88,22 @@ services:
         target: "_blank"
         type: "Ping"
 
+      - name: "Invidious"
+        logo: "assets/icons/invidious.svg"
+        subtitle: "Local instance of Invidious"
+        # tag: "app"
+        url: "https://invidious.prokopiv.xyz"
+        target: "_blank"
+        type: "Ping"
+
+      - name: "Changedetection"
+        icon: "fas fa-file-invoice"
+        subtitle: "Monitor sites"
+        # tag: "app"
+        url: "https://cd.prokopiv.xyz"
+        target: "_blank"
+        type: "Ping"
+
   - name: "Monitoring"
     icon: "fas fa-chart-area"
     items:
