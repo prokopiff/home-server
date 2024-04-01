@@ -76,7 +76,7 @@ services:
         logo: "assets/icons/Vortex-R.webp"
         subtitle: "Local Ad Blocking DNS"
         # tag: "app"
-        url: "https://pihole.prokopiv.xyz"
+        url: "https://pihole.prokopiv.site"
         type: "PiHole"
         target: "_blank" # optional html a tag target attribute
 
@@ -84,7 +84,7 @@ services:
         logo: "assets/icons/nextcloud.svg"
         subtitle: "Local instance of NextCloud"
         # tag: "app"
-        url: "https://nextcloud.prokopiv.xyz"
+        url: "https://nextcloud.prokopiv.site"
         target: "_blank"
         type: "Ping"
 
@@ -92,7 +92,7 @@ services:
         logo: "assets/icons/invidious.svg"
         subtitle: "Local instance of Invidious"
         # tag: "app"
-        url: "https://invidious.prokopiv.xyz"
+        url: "https://invidious.prokopiv.site"
         target: "_blank"
         type: "Ping"
 
@@ -100,7 +100,7 @@ services:
         icon: "fas fa-file-invoice"
         subtitle: "Monitor sites"
         # tag: "app"
-        url: "https://cd.prokopiv.xyz"
+        url: "https://cd.prokopiv.site"
         target: "_blank"
         type: "Ping"
 
@@ -111,7 +111,7 @@ services:
         logo: "assets/icons/grafana_icon.svg"
         subtitle: "Various statistics"
         # tag: "app"
-        url: "https://grafana.prokopiv.xyz"
+        url: "https://grafana.prokopiv.site"
         target: "_blank"
         type: "Ping"
 
@@ -119,7 +119,7 @@ services:
         logo: "assets/icons/influxdb.svg"
         subtitle: "Various statistics"
         # tag: "app"
-        url: "https://influxdb.prokopiv.xyz"
+        url: "https://influxdb.prokopiv.site"
         target: "_blank"
         type: "Ping"
 
@@ -130,14 +130,14 @@ services:
         logo: "assets/icons/qb.svg"
         subtitle: "Torrents"
         # tag: "app"
-        url: "https://qbittorrent.prokopiv.xyz"
+        url: "https://qbittorrent.prokopiv.site"
         target: "_blank"
         type: "Ping"
 
       - name: "Fresh RSS"
         icon: "fas fa-square-rss"
         subtitle: "RSS Reader"
-        url: "https://freshrss.prokopiv.xyz"
+        url: "https://freshrss.prokopiv.site"
         target: "_blank"
         type: "Ping"
 
@@ -147,7 +147,7 @@ services:
       - name: "Portainer"
         logo: "assets/icons/portainer.png"
         subtitle: "Docker information. user/pass for limited access"
-        url: "https://portainer.prokopiv.xyz"
+        url: "https://portainer.prokopiv.site"
         target: "_blank"
         type: "Portainer"
         apikey: "ptr_l6qo0xzr1Gbuicm+mthbKf5g6OEnALT7mFOuWq4+k0M="
@@ -155,21 +155,21 @@ services:
       - name: "SSHwifty"
         icon: "fas fa-terminal"
         subtitle: "SSH from browser"
-        url: "https://sshwifty.prokopiv.xyz"
+        url: "https://sshwifty.prokopiv.site"
         target: "_blank"
         # type: "Ping"
 
       - name: "File Browser"
         icon: "fas fa-folder-open"
         subtitle: "Web-based file browser"
-        url: "https://filebrowser.prokopiv.xyz"
+        url: "https://filebrowser.prokopiv.site"
         target: "_blank"
         # type: "Ping"
 
       - name: "Ntfy"
         icon: "fas fa-bell"
         # subtitle: "Web-based file browser"
-        url: "https://ntfy.prokopiv.xyz"
+        url: "https://ntfy.prokopiv.site"
         target: "_blank"
         type: "Ping"
 

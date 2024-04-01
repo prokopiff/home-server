@@ -18,7 +18,6 @@ services:
       - nextcloud
       - portainer
       - homer
-      - sshwifty
       - qbittorrent
       - filebrowser
       - freshrss
@@ -60,7 +59,7 @@ services:
       TZ: 'Europe/Kiev'
       ServerIP: '192.168.0.2'
       DNS1: '1.1.1.1'
-      CORS_HOSTS: pi.hole,prokopiv.xyz
+      CORS_HOSTS: pi.hole,prokopiv.site
     dns:
       - '1.1.1.1'
     volumes:
@@ -71,28 +70,32 @@ services:
     restart: unless-stopped
     extra_hosts:
       - 'pi4:192.168.0.2'
-      - 'thinkpad:192.168.0.12'
+      - 'synology:192.168.0.3'
+      - 'synology2:192.168.0.4'
       - 'op7pro:192.168.0.10'
       - 'op6:192.168.0.11'
-      - 'alexa:192.168.0.23'
+      - 'thinkpad:192.168.0.12'
       - 'desktop-wifi:192.168.0.13'
-      - 'desktop:192.168.0.16'
-      - 'masha-laptop:192.168.0.15'
       - 'tablet:192.168.0.14'
-      - 'synology:192.168.0.3'
+      - 'work-laptop:192.168.0.15'
+      - 'desktop:192.168.0.16'
+      - 'alexa:192.168.0.23'
+      - 'octopi:192.168.0.24'
+      - 'masha-phone:192.168.0.25'
+      - 'kindle:192.168.0.26'
+      - 'ihor-phone:192.168.0.30'
 
-      - 'prokopiv.xyz:192.168.0.2'
-      - 'pihole.prokopiv.xyz:192.168.0.2'
-      - 'grafana.prokopiv.xyz:192.168.0.2'
-      - 'influxdb.prokopiv.xyz:192.168.0.2'
-      - 'nextcloud.prokopiv.xyz:192.168.0.2'
-      - 'portainer.prokopiv.xyz:192.168.0.2'
-      - 'sshwifty.prokopiv.xyz:192.168.0.2'
-      - 'qbittorrent.prokopiv.xyz:192.168.0.2'
-      - 'filebrowser.prokopiv.xyz:192.168.0.2'
-      - 'freshrss.prokopiv.xyz:192.168.0.2'
-      - 'ntfy.prokopiv.xyz:192.168.0.2'
-      - 'vpn.prokopiv.xyz:192.168.0.2'
+      - 'prokopiv.site:192.168.0.2'
+      # - 'pihole.prokopiv.site:192.168.0.2'
+      # - 'grafana.prokopiv.site:192.168.0.2'
+      # - 'influxdb.prokopiv.site:192.168.0.2'
+      # - 'nextcloud.prokopiv.site:192.168.0.2'
+      # - 'portainer.prokopiv.site:192.168.0.2'
+      # - 'qbittorrent.prokopiv.site:192.168.0.2'
+      # - 'filebrowser.prokopiv.site:192.168.0.2'
+      # - 'freshrss.prokopiv.site:192.168.0.2'
+      # - 'ntfy.prokopiv.site:192.168.0.2'
+      # - 'vpn.prokopiv.site:192.168.0.2'
 
   grafana:
     container_name: grafana
@@ -155,8 +158,8 @@ services:
       - MYSQL_HOST=mariadb
       - REDIS_HOST=redis
       - TRUSTED_PROXIES=reverse-proxy
-      - TRUSTED_DOMAINS=nextcloud.prokopiv.xyz
-      - OVERWRITEHOST=nextcloud.prokopiv.xyz
+      - TRUSTED_DOMAINS=nextcloud.prokopiv.site
+      - OVERWRITEHOST=nextcloud.prokopiv.site
     depends_on:
       - mariadb
       - redis
@@ -166,7 +169,7 @@ services:
     restart: unless-stopped
     image: portainer/portainer-ce:latest
     environment:
-      - VIRTUAL_HOST=portainer.prokopiv.xyz
+      - VIRTUAL_HOST=portainer.prokopiv.site
     volumes:
       - './docker-data/portainer/data/:/data/'
       - '/var/run/docker.sock:/var/run/docker.sock'
@@ -186,16 +189,6 @@ services:
     volumes:
       - './docker-data/homer/www-assets/:/www/assets/'
       - './homer/config.yml:/www/assets/config.yml'
-    restart: unless-stopped
-
-  sshwifty:
-    container_name: sshwifty
-    image: niruix/sshwifty:latest
-    volumes:
-      - './sshwifty/sshwifty.conf.json:/sshwifty.conf.json'
-      - './sshwifty/keys/:/keys/'
-    environment:
-      - "SSHWIFTY_CONFIG=/sshwifty.conf.json"
     restart: unless-stopped
 
   system:
@@ -244,7 +237,7 @@ services:
     restart: unless-stopped
 
   freshrss:
-    image: freshrss/freshrss:edge-arm
+    image: freshrss/freshrss
     container_name: freshrss
     volumes:
       - ./docker-data/freshrss/var-www-data/:/var/www/FreshRSS/data/
@@ -334,6 +327,8 @@ services:
       POSTGRES_PASSWORD: kemal
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+    ports:
+      - 5432:5432
 
   changedetection:
     image: ghcr.io/dgtlmoon/changedetection.io

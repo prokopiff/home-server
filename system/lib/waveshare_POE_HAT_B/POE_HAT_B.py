@@ -45,7 +45,7 @@ class POE_HAT_B:
             temp = (int)(f.read() ) / 1000.0
         return temp
     
-    def POE_HAT_Display(self, FAN_TEMP):
+    def POE_HAT_Display(self, FAN_TEMP, d=3):
         # show.Init()
         # show.ClearBlack()
         
@@ -57,10 +57,10 @@ class POE_HAT_B:
         # draw.text((0,1), 'IP:'+str(ip), font = font, fill = 0)
         draw.text((0,1), load, font = font, fill = 0)
         draw.text((0,15), 'Temp:'+ str(((int)(temp*10))/10.0), font = font, fill = 0)
-        if(temp>=FAN_TEMP):
+        if(temp >= FAN_TEMP + d):
             self.FAN_MODE = 1
             
-        elif(temp<FAN_TEMP-2):
+        elif(temp < FAN_TEMP - d):
             self.FAN_MODE = 0
         
         if(self.FAN_MODE == 1):
